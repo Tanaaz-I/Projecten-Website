@@ -1,33 +1,37 @@
+// Mobile nav close on link click
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{
+  const n=document.querySelector('.nav'); n?.classList?.remove('open');
+}));
 
-// Mobile nav
-const burger = document.querySelector('.burger');
-const nav = document.querySelector('.nav');
-if (burger) {
-  burger.addEventListener('click', () => nav.classList.toggle('open'));
-}
+// === Auto-highlight TOC items on the More Info page ===
+(function(){
+  const toc = document.querySelector('.toc');
+  if (!toc) return;
+  const links = toc.querySelectorAll('a[href^="#"]');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
 
-// Scroll reveal
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('show');
-  })
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  sections.forEach(s => s.style.scrollMarginTop = s.style.scrollMarginTop || '90px');
 
-// Mouse parallax for the hero preview
-const prev = document.querySelector('.preview');
-if (prev) {
-  prev.addEventListener('mousemove', (e)=>{
-    const r = prev.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - .5;
-    const y = (e.clientY - r.top) / r.height - .5;
-    prev.style.transform = `translateY(${y*6}px) rotateX(${y*3}deg) rotateY(${x*-3}deg)`;
+  function setActive(id){
+    links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href').slice(1) === id));
+  }
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) setActive(entry.target.id); });
+  }, {root:null, rootMargin:'-40% 0px -50% 0px', threshold:0.01});
+
+  sections.forEach(sec => obs.observe(sec));
+
+  links.forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', a.getAttribute('href'));
+      setActive(target.id);
+    });
   });
-  prev.addEventListener('mouseleave', ()=>{
-    prev.style.transform = '';
-  });
-}
 
-// Set year
-const y = document.querySelector('#year');
-if (y) y.textContent = new Date().getFullYear();
+  if (location.hash) setActive(location.hash.slice(1));
+})();
