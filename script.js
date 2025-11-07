@@ -3,7 +3,7 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{
   const n=document.querySelector('.nav'); n?.classList?.remove('open');
 }));
 
-// === Auto-highlight TOC items on the More Info page ===
+// Auto highlight items on the More Info page
 (function(){
   const toc = document.querySelector('.toc');
   if (!toc) return;

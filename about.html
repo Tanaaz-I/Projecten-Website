@@ -3,8 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Digital World & AI — About Us</title>
+  <title>About Us</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .team .member {
+      flex: 1 1 320px;
+      max-width: 380px;
+      transition: transform 0.6s ease, box-shadow 0.6s ease, opacity 0.6s ease;
+      min-height: 540px;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .team .member.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .team .member:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(255,210,77,0.25), 0 10px 20px rgba(0,0,0,0.4);
+    }
+    .member .photo {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .member .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .team .member:hover .photo img {
+      transform: scale(1.08);
+    }
+  </style>
 </head>
 <body>
   <div class="scene" aria-hidden="true">
@@ -12,7 +45,7 @@
   </div>
   <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="index.html"><span class="logo"></span><b>Digital World & AI</b></a>
+      <a class="brand" href="index.html"><span class="logo"></span><b>The Initiators</b></a>
       <nav class="nav">
         <a href="index.html">Home</a>
         <a href="info.html">More Info</a>
@@ -24,32 +57,24 @@
   <main>
     <section class="about-hero">
       <div class="container">
-        <h1>Meet the team</h1>
-        <p>We’re a small group passionate about digital wellbeing and AI literacy. Here are the people behind this project.</p>
+        <h1>Meet The Initiators</h1>
+        <p>Here are the people behind this project.</p>
       </div>
     </section>
 
     <section class="team">
-      <div class="container team-grid">
+      <div class="container" style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;">
         <article class="member">
-          <div class="photo"><img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1600&auto=format&fit=crop" alt="Aisha"></div>
-          <div class="body"><h3>Aisha Rahman</h3><p class="meta">Age: 22 · Project Lead</p><p>Aisha coordinates content and partnerships, making sure our guides are practical and inclusive.</p></div>
+          <div class="photo"><img src="Img/WhatsApp Image 2025-10-22 at 13.08.57.jpeg" alt="Aisha"></div>
+          <div class="body"><h3>Varel Van der San</h3><p class="meta">Programmer & Content</p><p>Varel coordinates content and helps building the website, making sure our website has relevant info.</p></div>
         </article>
         <article class="member">
-          <div class="photo"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop" alt="Daniel"></div>
-          <div class="body"><h3>Daniel Brooks</h3><p class="meta">Age: 24 · UX & Design</p><p>Daniel shapes the look and feel so everything is accessible and friendly on all screens.</p></div>
+          <div class="photo"><img src="Img/WhatsApp Image 2025-10-22 at 19.33.36.jpeg" alt="Daniel"></div>
+          <div class="body"><h3>Christian Jaigobin</h3><p class="meta">Programmer & Design</p><p>Christian shapes the look and feel so everything is accessible and friendly on all screens.</p></div>
         </article>
         <article class="member">
-          <div class="photo"><img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=1600&auto=format&fit=crop" alt="Priya"></div>
-          <div class="body"><h3>Priya Nand</h3><p class="meta">Age: 21 · Content Writer</p><p>Priya explains deepfakes, privacy and safety with clear, actionable tips for teens and parents.</p></div>
-        </article>
-        <article class="member">
-          <div class="photo"><img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=1600&auto=format&fit=crop" alt="Mateo"></div>
-          <div class="body"><h3>Mateo Alvarez</h3><p class="meta">Age: 23 · Developer</p><p>Mateo builds the site and tools from smooth scrolling to privacy-conscious features.</p></div>
-        </article>
-        <article class="member">
-          <div class="photo"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1600&auto=format&fit=crop" alt="Sofia"></div>
-          <div class="body"><h3>Sofia Martins</h3><p class="meta">Age: 20 · Research</p><p>Sofia reviews sources so our guidance stays current with tech and platform policy changes.</p></div>
+          <div class="photo"><img src="Img/IMG_9005.jpeg" alt="Priya"></div>
+          <div class="body"><h3>Tanaaz Imambaks</h3><p class="meta">Programmer & Design</p><p>Tanaaz brings creativity and precision together, ensuring every design feels modern, intuitive, and beautifully balanced across all platforms.</p></div>
         </article>
       </div>
     </section>
@@ -60,8 +85,19 @@
   </main>
 
   <footer class="footer">
-    <div class="container"><p>&copy; 2025 Digital World & AI</p></div>
+    <div class="container"><p>&copy; 2025 The Initiators</p></div>
   </footer>
   <script src="script.js"></script>
+  <script>
+    const members = document.querySelectorAll('.member');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), index * 300);
+        }
+      });
+    }, { threshold: 0.2 });
+    members.forEach(member => observer.observe(member));
+  </script>
 </body>
 </html>
