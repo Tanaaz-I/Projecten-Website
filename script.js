@@ -35,3 +35,14 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{
 
   if (location.hash) setActive(location.hash.slice(1));
 })();
+
+
+// Hamburger toggle
+const burger = document.getElementById("burgerBtn");
+const nav = document.querySelector(".nav");
+if(burger){
+  burger.addEventListener("click", ()=>{
+    burger.classList.toggle("active");
+    nav.classList.toggle("open");
+  });
+}
